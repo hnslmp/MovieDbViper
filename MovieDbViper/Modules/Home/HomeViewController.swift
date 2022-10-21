@@ -113,7 +113,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        presenter.goToMovie
+        let selectedGenre = genresData[indexPath.row].name
+        presenter.goToMovieList(selectedGenre)
     }
-    
 }

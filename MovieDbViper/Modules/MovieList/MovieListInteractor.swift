@@ -19,15 +19,16 @@ import SwiftyVIPER
 protocol MovieListPresenterInteractorProtocol {
 	/// Requests the title for the presenter
 	func requestTitle()
+    func requestApiMovieList()
 }
 
 // MARK: -
 
 /// The Interactor for the MovieList module
 final class MovieListInteractor: MovieListPresenterInteractorProtocol {
-
+    
 	// MARK: - Variables
-
+    var genreSelected: String?
 	weak var presenter: MovieListInteractorPresenterProtocol?
 
 	// MARK: - MovieList Presenter to Interactor Protocol
@@ -35,4 +36,17 @@ final class MovieListInteractor: MovieListPresenterInteractorProtocol {
 	func requestTitle() {
 		presenter?.set(title: "MovieList")
 	}
+    
+    func requestApiMovieList() {
+        guard let genreSelected = genreSelected else { return }
+        ApiManager.shared.getMoviesList(genre: genreSelected) { result in
+            switch result {
+            case .success(let movies):
+                print(movies)
+//                self.presenter?.setGenreData(genres)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

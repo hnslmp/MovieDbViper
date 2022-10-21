@@ -44,9 +44,10 @@ final class MovieListModule: ModuleProtocol {
 
 	// MARK: Inits
 
-	init() {
+    init(genreSelected: String) {
 		presenter.view = view
 		router.viewController = view
 		interactor.presenter = presenter
+        interactor.genreSelected = genreSelected
 	}
 }

@@ -55,6 +55,7 @@ final class MovieListPresenter: MovieListViewPresenterProtocol, MovieListInterac
 
 	func viewLoaded() {
 		interactor.requestTitle()
+        interactor.requestApiMovieList()
 	}
 
 	// MARK: - MovieList Interactor to Presenter Protocol
