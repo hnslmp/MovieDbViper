@@ -7,4 +7,5 @@ target 'MovieDbViper' do
 
   # Pods for MovieDbViper
   pod 'SwiftyVIPER', '~> 1.0'
+  pod 'SnapKit', '~> 5.0.0' 
 end

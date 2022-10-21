@@ -18,11 +18,7 @@ import UIKit
 /// Used to initialize the Home VIPER module
 final class HomeModule: ModuleProtocol {
 
-	// MARK: - Constants
-
-	let storyboard: UIStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: Bundle.main)
-
-	// MARK: Variables
+	// MARK: - Variables
 
 	private(set) lazy var interactor: HomeInteractor = {
 		HomeInteractor()
@@ -37,9 +33,7 @@ final class HomeModule: ModuleProtocol {
 	}()
 
 	private(set) lazy var view: HomeViewController = {
-		var vc = self.storyboard.viewController(HomeViewController.self)
-		vc.presenter = self.presenter
-		return vc
+		HomeViewController(presenter: self.presenter)
 	}()
 
 	// MARK: - Module Protocol Variables

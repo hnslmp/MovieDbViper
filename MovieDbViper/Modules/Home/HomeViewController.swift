@@ -11,8 +11,8 @@
 // MARK: Imports
 
 import UIKit
-
 import SwiftyVIPER
+import SnapKit
 
 // MARK: Protocols
 
@@ -28,20 +28,42 @@ protocol HomePresenterViewProtocol: class {
 // MARK: -
 
 /// The View Controller for the Home module
-class HomeViewController: UIViewController, StoryboardIdentifiable, HomePresenterViewProtocol {
+class HomeViewController: UIViewController, HomePresenterViewProtocol {
 
 	// MARK: - Constants
 
-	// MARK: Variables
+	let presenter: HomeViewPresenterProtocol
 
-	var presenter: HomeViewPresenterProtocol?
+	// MARK: Variables
+    
+    // TODO: delete later
+    private let data: [String] = ["India","Horror","Comedy","Alfa","Omega"]
+    
+    private let tableView: UITableView = {
+        let tv = UITableView()
+        tv.backgroundColor = .clear
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        return tv
+    }()
+    
+
+	// MARK: Inits
+
+	init(presenter: HomeViewPresenterProtocol) {
+		self.presenter = presenter
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - Load Functions
 
 	override func viewDidLoad() {
     	super.viewDidLoad()
-		presenter?.viewLoaded()
-
+		presenter.viewLoaded()
+        setupTableView()
 		view.backgroundColor = .white
     }
 
@@ -50,4 +72,34 @@ class HomeViewController: UIViewController, StoryboardIdentifiable, HomePresente
 	func set(title: String?) {
 		self.title = title
 	}
+    
+    func setupTableView() {
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+}
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        cell.backgroundColor = UIColor.black
+//        cell.text = data[indexPath.row]
+        return cell
+    }
+    
 }
