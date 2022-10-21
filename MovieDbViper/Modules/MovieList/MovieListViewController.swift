@@ -38,9 +38,14 @@ class MovieListViewController: UIViewController, MovieListPresenterViewProtocol 
 	// MARK: Variables
     private var movieListData: [MovieResult] = []
     
-    private var collectionView: UICollectionView = {
-        let cv = UICollectionView()
-        return cv
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 144, height: 144)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(MovieListCollectionViewCell.self, forCellWithReuseIdentifier: MovieListCollectionViewCell.identifier)
+        return collectionView
     }()
 
 	// MARK: Inits
@@ -61,6 +66,14 @@ class MovieListViewController: UIViewController, MovieListPresenterViewProtocol 
 		presenter.viewLoaded()
 
 		view.backgroundColor = .white
+        
+        configureCollectionView()
+    }
+    
+    func configureCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
 
 	// MARK: - MovieList Presenter to View Protocol
@@ -71,5 +84,23 @@ class MovieListViewController: UIViewController, MovieListPresenterViewProtocol 
     
     func updateMovieListData(_ movies: [MovieResult]) {
         self.movieListData = movies
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
+}
+
+extension MovieListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return movieListData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListCollectionViewCell.identifier, for: indexPath) as? MovieListCollectionViewCell else { return UICollectionViewCell() }
+        cell.backgroundColor = .systemPink
+        cell.configure(with: movieListData[indexPath.row])
+        return cell
+    }
+    
 }
