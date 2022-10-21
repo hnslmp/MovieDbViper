@@ -20,7 +20,7 @@ final class HomeModule: ModuleProtocol {
 
 	// MARK: - Constants
 
-	let storyboard: UIStoryboard = UIStoryboard(name: <#T##String#>, bundle: Bundle.main)
+	let storyboard: UIStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: Bundle.main)
 
 	// MARK: Variables
 
