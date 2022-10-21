@@ -39,6 +39,8 @@ class HomeViewController: UIViewController, HomePresenterViewProtocol {
     // TODO: delete later
     private let data: [String] = ["India","Horror","Comedy","Alfa","Omega"]
     
+    private var genresData: [Genre] = []
+    
     private let tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .clear
@@ -75,6 +77,18 @@ class HomeViewController: UIViewController, HomePresenterViewProtocol {
     
     func setupTableView() {
         
+        ApiManager.shared.getMoviesGenres { result in
+            switch result {
+            case .success(let genres):
+                self.genresData = genres
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(_):
+                break
+            }
+        }
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
         view.addSubview(tableView)
@@ -92,13 +106,13 @@ class HomeViewController: UIViewController, HomePresenterViewProtocol {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return genresData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        cell.backgroundColor = UIColor.black
-//        cell.text = data[indexPath.row]
+        cell.backgroundColor = UIColor.white
+        cell.textLabel?.text = genresData[indexPath.row].name
         return cell
     }
     
