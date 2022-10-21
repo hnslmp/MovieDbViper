@@ -18,7 +18,7 @@ import SwiftyVIPER
 
 /// Should be conformed to by the `HomePresenter` and referenced by `HomeViewController`
 protocol HomeViewPresenterProtocol: ViewPresenterProtocol {
-
+    
 }
 
 /// Should be conformed to by the `HomePresenter` and referenced by `HomeInteractor`
@@ -28,6 +28,7 @@ protocol HomeInteractorPresenterProtocol: class {
 		- title The title to set
 	*/
 	func set(title: String?)
+    func setGenreData(_ genres: [Genre])
 }
 
 // MARK: -
@@ -55,6 +56,7 @@ final class HomePresenter: HomeViewPresenterProtocol, HomeInteractorPresenterPro
 
 	func viewLoaded() {
 		interactor.requestTitle()
+        interactor.requestApiGenres()
 	}
 
 	// MARK: - Home Interactor to Presenter Protocol
@@ -62,4 +64,10 @@ final class HomePresenter: HomeViewPresenterProtocol, HomeInteractorPresenterPro
 	func set(title: String?) {
 		view?.set(title: title)
 	}
+    
+    func setGenreData(_ genres: [Genre]) {
+        view?.updateGenre(genres)
+//        view.
+//        view.updateGenre(_ genres: [Genre])
+    }
 }

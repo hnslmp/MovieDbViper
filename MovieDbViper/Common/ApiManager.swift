@@ -24,7 +24,7 @@ class ApiManager {
                 let results = try JSONDecoder().decode(GenresResponse.self, from: data)
                 completion(.success(results.genres))
             } catch {
-//                completion(.failure())
+                completion(.failure(error))
             }
         }
         

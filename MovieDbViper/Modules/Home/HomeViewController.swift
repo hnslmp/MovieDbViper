@@ -23,6 +23,7 @@ protocol HomePresenterViewProtocol: class {
 		- title The title to set
 	*/
 	func set(title: String?)
+    func updateGenre(_ genres: [Genre])
 }
 
 // MARK: -
@@ -75,20 +76,14 @@ class HomeViewController: UIViewController, HomePresenterViewProtocol {
 		self.title = title
 	}
     
-    func setupTableView() {
-        
-        ApiManager.shared.getMoviesGenres { result in
-            switch result {
-            case .success(let genres):
-                self.genresData = genres
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            case .failure(_):
-                break
-            }
+    func updateGenre(_ genres: [Genre]) {
+        self.genresData = genres
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
-        
+    }
+    
+    func setupTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
         view.addSubview(tableView)
@@ -102,6 +97,7 @@ class HomeViewController: UIViewController, HomePresenterViewProtocol {
         tableView.delegate = self
         tableView.dataSource = self
     }
+
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {

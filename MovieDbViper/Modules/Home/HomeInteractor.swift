@@ -19,6 +19,7 @@ import SwiftyVIPER
 protocol HomePresenterInteractorProtocol {
 	/// Requests the title for the presenter
 	func requestTitle()
+    func requestApiGenres()
 }
 
 // MARK: -
@@ -35,4 +36,15 @@ final class HomeInteractor: HomePresenterInteractorProtocol {
 	func requestTitle() {
 		presenter?.set(title: "Home")
 	}
+    
+    func requestApiGenres() {
+        ApiManager.shared.getMoviesGenres { result in
+            switch result {
+            case .success(let genres):
+                self.presenter?.setGenreData(genres)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
