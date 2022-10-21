@@ -11,7 +11,7 @@ import Network
 class ApiManager {
     static let shared = ApiManager()
     
-    func getMoviesGenres(completion: @escaping (Result<[Genre], Error>) -> Void) {
+    func getMoviesGenres(completion: @escaping (Result<[GenreResult], Error>) -> Void) {
         guard let url = URL(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=\(Constants.apiKey)&language=en-US") else { return }
         let urlRequest = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in

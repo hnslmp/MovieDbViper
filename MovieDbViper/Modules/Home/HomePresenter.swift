@@ -28,7 +28,7 @@ protocol HomeInteractorPresenterProtocol: class {
 		- title The title to set
 	*/
 	func set(title: String?)
-    func setGenreData(_ genres: [Genre])
+    func setGenreData(_ genres: [GenreResult])
 }
 
 // MARK: -
@@ -65,7 +65,7 @@ final class HomePresenter: HomeViewPresenterProtocol, HomeInteractorPresenterPro
 		view?.set(title: title)
 	}
     
-    func setGenreData(_ genres: [Genre]) {
+    func setGenreData(_ genres: [GenreResult]) {
         view?.updateGenre(genres)
     }
     

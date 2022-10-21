@@ -23,6 +23,7 @@ protocol MovieListPresenterViewProtocol: class {
 		- title The title to set
 	*/
 	func set(title: String?)
+    func updateMovieListData(_ movies: [MovieResult])
 }
 
 // MARK: -
@@ -35,6 +36,7 @@ class MovieListViewController: UIViewController, MovieListPresenterViewProtocol 
 	let presenter: MovieListViewPresenterProtocol
 
 	// MARK: Variables
+    private var movieListData: [MovieResult] = []
 
 	// MARK: Inits
 
@@ -61,4 +63,8 @@ class MovieListViewController: UIViewController, MovieListPresenterViewProtocol 
 	func set(title: String?) {
 		self.title = title
 	}
+    
+    func updateMovieListData(_ movies: [MovieResult]) {
+        self.movieListData = movies
+    }
 }

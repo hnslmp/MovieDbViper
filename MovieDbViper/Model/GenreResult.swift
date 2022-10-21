@@ -8,10 +8,10 @@
 import Foundation
 
 struct GenresResponse: Codable {
-    let genres: [Genre]
+    let genres: [GenreResult]
 }
 
-struct Genre: Codable {
+struct GenreResult: Codable {
     let id: Int
     let name: String
 }

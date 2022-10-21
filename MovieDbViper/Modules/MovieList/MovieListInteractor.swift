@@ -42,10 +42,9 @@ final class MovieListInteractor: MovieListPresenterInteractorProtocol {
         ApiManager.shared.getMoviesList(genre: genreSelected) { result in
             switch result {
             case .success(let movies):
-                print(movies)
-//                self.presenter?.setGenreData(genres)
+                self.presenter?.setMovieListData(movies)
             case .failure(let error):
-                print(error)
+                print(error.localizedDescription)
             }
         }
     }

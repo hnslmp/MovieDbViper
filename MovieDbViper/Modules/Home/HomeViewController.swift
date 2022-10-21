@@ -23,7 +23,7 @@ protocol HomePresenterViewProtocol: class {
 		- title The title to set
 	*/
 	func set(title: String?)
-    func updateGenre(_ genres: [Genre])
+    func updateGenre(_ genres: [GenreResult])
 }
 
 // MARK: -
@@ -36,11 +36,7 @@ class HomeViewController: UIViewController, HomePresenterViewProtocol {
 	let presenter: HomeViewPresenterProtocol
 
 	// MARK: Variables
-    
-    // TODO: delete later
-    private let data: [String] = ["India","Horror","Comedy","Alfa","Omega"]
-    
-    private var genresData: [Genre] = []
+    private var genresData: [GenreResult] = []
     
     private let tableView: UITableView = {
         let tv = UITableView()
@@ -76,7 +72,7 @@ class HomeViewController: UIViewController, HomePresenterViewProtocol {
 		self.title = title
 	}
     
-    func updateGenre(_ genres: [Genre]) {
+    func updateGenre(_ genres: [GenreResult]) {
         self.genresData = genres
         DispatchQueue.main.async {
             self.tableView.reloadData()

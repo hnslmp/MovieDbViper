@@ -28,13 +28,14 @@ protocol MovieListInteractorPresenterProtocol: class {
 		- title The title to set
 	*/
 	func set(title: String?)
+    func setMovieListData(_ movies: [MovieResult])
 }
 
 // MARK: -
 
 /// The Presenter for the MovieList module
 final class MovieListPresenter: MovieListViewPresenterProtocol, MovieListInteractorPresenterProtocol {
-
+    
 	// MARK: - Constants
 
 	let router: MovieListPresenterRouterProtocol
@@ -63,4 +64,8 @@ final class MovieListPresenter: MovieListViewPresenterProtocol, MovieListInterac
 	func set(title: String?) {
 		view?.set(title: title)
 	}
+    
+    func setMovieListData(_ movies: [MovieResult]) {
+        view?.updateMovieListData(movies)
+    }
 }
