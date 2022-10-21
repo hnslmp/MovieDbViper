@@ -37,6 +37,11 @@ class MovieListViewController: UIViewController, MovieListPresenterViewProtocol 
 
 	// MARK: Variables
     private var movieListData: [MovieResult] = []
+    
+    private var collectionView: UICollectionView = {
+        let cv = UICollectionView()
+        return cv
+    }()
 
 	// MARK: Inits
 
