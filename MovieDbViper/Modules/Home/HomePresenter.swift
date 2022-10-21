@@ -67,7 +67,5 @@ final class HomePresenter: HomeViewPresenterProtocol, HomeInteractorPresenterPro
     
     func setGenreData(_ genres: [Genre]) {
         view?.updateGenre(genres)
-//        view.
-//        view.updateGenre(_ genres: [Genre])
     }
 }
