@@ -39,10 +39,10 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
     // MARK: Variables
     
     var movieSelected: MovieResult?
-    var videoData: MovieVideoResult?
-    var reviewData: [MovieReviewResult] = []
+    private var videoData: MovieVideoResult?
+    private var reviewData: [MovieReviewResult] = []
     
-    lazy var playerView: WKYTPlayerView = {
+    private lazy var playerView: WKYTPlayerView = {
         let player = WKYTPlayerView()
         return player
     }()
@@ -54,7 +54,9 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
         return tableView
     }()
     
-    var labelStackView = UIStackView()
+    private var tableViewLabel = UILabel()
+    
+    private var labelStackView = UIStackView()
     
     // MARK: Inits
     
@@ -115,8 +117,6 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
     }
     
     func setupTableView() {
-        
-        let tableViewLabel = UILabel()
         tableViewLabel.text = "Movie Reviews: "
         view.addSubview(tableViewLabel)
         tableViewLabel.snp.makeConstraints { make in
@@ -152,9 +152,15 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
     }
     
     func setMovieReviewData(_ reviewData: [MovieReviewResult]) {
-        self.reviewData = reviewData
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        if reviewData.isEmpty {
+            DispatchQueue.main.async {
+                self.tableViewLabel.text = "No Review Data Available!"
+            }
+        } else {
+            self.reviewData = reviewData
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
 }
