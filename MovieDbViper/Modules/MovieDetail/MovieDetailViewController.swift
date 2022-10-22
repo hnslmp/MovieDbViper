@@ -40,12 +40,21 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
     
     var movieSelected: MovieResult?
     var videoData: MovieVideoResult?
-    var reviewData: [MovieReviewResult]?
+    var reviewData: [MovieReviewResult] = []
     
     lazy var playerView: WKYTPlayerView = {
         let player = WKYTPlayerView()
         return player
     }()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    var labelStackView = UIStackView()
     
     // MARK: Inits
     
@@ -90,7 +99,7 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
             overviewLabel.lineBreakMode = .byWordWrapping
             overviewLabel.numberOfLines = 8
             
-            let labelStackView = UIStackView(arrangedSubviews: [titleLabel, releaseDateLabel, overviewLabel])
+            labelStackView = UIStackView(arrangedSubviews: [titleLabel, releaseDateLabel, overviewLabel])
             labelStackView.axis = .vertical
             labelStackView.spacing = 8
             
@@ -101,6 +110,23 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
                 make.trailing.equalToSuperview().inset(24)
             }
         }
+        
+        setupTableView()
+    }
+    
+    func setupTableView() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(labelStackView.snp.bottom)
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview().inset(24)
+            make.trailing.equalToSuperview().inset(24)
+        }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     // MARK: - MovieDetail Presenter to View Protocol
@@ -118,6 +144,9 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
     
     func setMovieReviewData(_ reviewData: [MovieReviewResult]) {
         self.reviewData = reviewData
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -125,6 +154,21 @@ extension MovieDetailViewController: WKYTPlayerViewDelegate {
     
     func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
         playerView.playVideo()
+    }
+    
+}
+
+extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return reviewData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        cell.backgroundColor = UIColor.white
+        cell.textLabel?.text = reviewData[indexPath.row].content
+        return cell
     }
     
 }
