@@ -29,12 +29,14 @@ protocol MovieDetailInteractorPresenterProtocol: AnyObject {
 	*/
 	func set(title: String?)
     func setMovieVideoData(_ videoData: MovieVideoResult)
+    func setMovieReviewData(_ reviewData: [MovieReviewResult])
 }
 
 // MARK: -
 
 /// The Presenter for the MovieDetail module
 final class MovieDetailPresenter: MovieDetailViewPresenterProtocol, MovieDetailInteractorPresenterProtocol {
+
     
 
 	// MARK: - Constants
@@ -70,4 +72,9 @@ final class MovieDetailPresenter: MovieDetailViewPresenterProtocol, MovieDetailI
     func setMovieVideoData(_ videoData: MovieVideoResult) {
         view?.setMovieVideoData(videoData)
     }
+    
+    func setMovieReviewData(_ reviewData: [MovieReviewResult]) {
+        view?.setMovieReviewData(reviewData)
+    }
+    
 }

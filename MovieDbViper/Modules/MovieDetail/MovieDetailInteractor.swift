@@ -55,8 +55,8 @@ final class MovieDetailInteractor: MovieDetailPresenterInteractorProtocol {
         guard let movieSelected = movieSelected else { return }
         ApiManager.shared.getMovieReview(movieId: movieSelected.id) { result in
             switch result {
-            case .success(let success):
-                break
+            case .success(let reviews):
+                self.presenter?.setMovieReviewData(reviews)
             case .failure(let error):
                 print(error)
             }

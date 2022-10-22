@@ -24,13 +24,14 @@ protocol MovieDetailPresenterViewProtocol: AnyObject {
      */
     func set(title: String?)
     func setMovieVideoData(_ videoData: MovieVideoResult)
+    func setMovieReviewData(_ reviewData: [MovieReviewResult])
 }
 
 // MARK: -
 
 /// The View Controller for the MovieDetail module
 class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProtocol {
-    
+
     // MARK: - Constants
     
     let presenter: MovieDetailViewPresenterProtocol
@@ -39,13 +40,12 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
     
     var movieSelected: MovieResult?
     var videoData: MovieVideoResult?
+    var reviewData: [MovieReviewResult]?
     
     lazy var playerView: WKYTPlayerView = {
         let player = WKYTPlayerView()
         return player
     }()
-    
-//    lazy var movieTitle: UILabel =
     
     // MARK: Inits
     
@@ -116,6 +116,10 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
         DispatchQueue.main.async {
             self.playerView.load(withVideoId: videoData.key)
         }
+    }
+    
+    func setMovieReviewData(_ reviewData: [MovieReviewResult]) {
+        self.reviewData = reviewData
     }
 }
 
