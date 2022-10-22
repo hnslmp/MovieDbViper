@@ -115,11 +115,20 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
     }
     
     func setupTableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
+        let tableViewLabel = UILabel()
+        tableViewLabel.text = "Movie Reviews: "
+        view.addSubview(tableViewLabel)
+        tableViewLabel.snp.makeConstraints { make in
+            make.top.equalTo(labelStackView.snp.bottom).offset(12)
+            make.leading.equalToSuperview().inset(24)
+            make.trailing.equalToSuperview().inset(24)
+        }
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(labelStackView.snp.bottom)
+            make.top.equalTo(tableViewLabel.snp.bottom)
             make.bottom.equalToSuperview()
             make.leading.equalToSuperview().inset(24)
             make.trailing.equalToSuperview().inset(24)
