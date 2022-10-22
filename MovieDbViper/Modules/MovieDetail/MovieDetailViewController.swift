@@ -78,7 +78,7 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
         }
         
         if let movieSelected = movieSelected {
-            
+
             let titleLabel = UILabel()
             titleLabel.text = "Title: \(movieSelected.title)"
             
@@ -93,8 +93,6 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
             let labelStackView = UIStackView(arrangedSubviews: [titleLabel, releaseDateLabel, overviewLabel])
             labelStackView.axis = .vertical
             labelStackView.spacing = 8
-            
-            labelStackView.backgroundColor = .systemPink
             
             view.addSubview(labelStackView)
             labelStackView.snp.makeConstraints { make in

@@ -36,7 +36,7 @@ final class MovieDetailInteractor: MovieDetailPresenterInteractorProtocol {
 	// MARK: - MovieDetail Presenter to Interactor Protocol
 
 	func requestTitle() {
-		presenter?.set(title: "MovieDetail")
+        presenter?.set(title: "Movie Detail")
 	}
     
     func requestMovieVideo() {
