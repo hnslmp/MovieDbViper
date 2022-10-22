@@ -17,7 +17,7 @@ import SnapKit
 // MARK: Protocols
 
 /// Should be conformed to by the `HomeViewController` and referenced by `HomePresenter`
-protocol HomePresenterViewProtocol: class {
+protocol HomePresenterViewProtocol: AnyObject {
 	/** Sets the title for the view
 	- parameters:
 		- title The title to set
@@ -38,14 +38,13 @@ class HomeViewController: UIViewController, HomePresenterViewProtocol {
 	// MARK: Variables
     private var genresData: [GenreResult] = []
     
-    private let tableView: UITableView = {
-        let tv = UITableView()
-        tv.backgroundColor = .clear
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        return tv
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
-
 	// MARK: Inits
 
 	init(presenter: HomeViewPresenterProtocol) {
@@ -109,7 +108,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedGenre = genresData[indexPath.row].name
+        let selectedGenre = genresData[indexPath.row]
         presenter.goToMovieList(selectedGenre)
     }
 }

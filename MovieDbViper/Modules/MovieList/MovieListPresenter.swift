@@ -18,11 +18,11 @@ import SwiftyVIPER
 
 /// Should be conformed to by the `MovieListPresenter` and referenced by `MovieListViewController`
 protocol MovieListViewPresenterProtocol: ViewPresenterProtocol {
-
+    func goToMovieDetail(_ selectedMovie: MovieResult)
 }
 
 /// Should be conformed to by the `MovieListPresenter` and referenced by `MovieListInteractor`
-protocol MovieListInteractorPresenterProtocol: class {
+protocol MovieListInteractorPresenterProtocol: AnyObject {
 	/** Sets the title for the presenter
 	- parameters:
 		- title The title to set
@@ -58,6 +58,10 @@ final class MovieListPresenter: MovieListViewPresenterProtocol, MovieListInterac
 		interactor.requestTitle()
         interactor.requestApiMovieList()
 	}
+    
+    func goToMovieDetail(_ selectedMovie: MovieResult) {
+        router.goToMovieDetail(selectedMovie)
+    }
 
 	// MARK: - MovieList Interactor to Presenter Protocol
 

@@ -28,23 +28,27 @@ protocol MovieListPresenterInteractorProtocol {
 final class MovieListInteractor: MovieListPresenterInteractorProtocol {
     
 	// MARK: - Variables
-    var genreSelected: String?
+    var genreSelected: GenreResult?
 	weak var presenter: MovieListInteractorPresenterProtocol?
 
 	// MARK: - MovieList Presenter to Interactor Protocol
 
 	func requestTitle() {
-		presenter?.set(title: "MovieList")
+        if let genreSelected = genreSelected {
+            presenter?.set(title: "Movies based on \(genreSelected.name) genre")
+        } else {
+            presenter?.set(title: "Movie List")
+        }
 	}
     
     func requestApiMovieList() {
         guard let genreSelected = genreSelected else { return }
-        ApiManager.shared.getMoviesList(genre: genreSelected) { result in
+        ApiManager.shared.getMoviesList(genreId: genreSelected.id) { result in
             switch result {
             case .success(let movies):
                 self.presenter?.setMovieListData(movies)
             case .failure(let error):
-                print(error.localizedDescription)
+                print(error)
             }
         }
     }

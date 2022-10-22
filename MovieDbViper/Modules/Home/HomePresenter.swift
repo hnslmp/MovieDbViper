@@ -18,11 +18,11 @@ import SwiftyVIPER
 
 /// Should be conformed to by the `HomePresenter` and referenced by `HomeViewController`
 protocol HomeViewPresenterProtocol: ViewPresenterProtocol {
-    func goToMovieList(_ genreSelected: String)
+    func goToMovieList(_ genreSelected: GenreResult)
 }
 
 /// Should be conformed to by the `HomePresenter` and referenced by `HomeInteractor`
-protocol HomeInteractorPresenterProtocol: class {
+protocol HomeInteractorPresenterProtocol: AnyObject {
 	/** Sets the title for the presenter
 	- parameters:
 		- title The title to set
@@ -58,6 +58,10 @@ final class HomePresenter: HomeViewPresenterProtocol, HomeInteractorPresenterPro
 		interactor.requestTitle()
         interactor.requestApiGenres()
 	}
+    
+    func goToMovieList(_ genreSelected: GenreResult) {
+        router.goToMovieList(genreSelected)
+    }
 
 	// MARK: - Home Interactor to Presenter Protocol
 
@@ -69,7 +73,4 @@ final class HomePresenter: HomeViewPresenterProtocol, HomeInteractorPresenterPro
         view?.updateGenre(genres)
     }
     
-    func goToMovieList(_ genreSelected: String) {
-        router.goToMovieList(genreSelected)
-    }
 }

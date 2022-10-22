@@ -34,7 +34,7 @@ final class HomeInteractor: HomePresenterInteractorProtocol {
 	// MARK: - Home Presenter to Interactor Protocol
 
 	func requestTitle() {
-		presenter?.set(title: "Home")
+		presenter?.set(title: "Choose your movie genre")
 	}
     
     func requestApiGenres() {

@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - MovieListResponse
 struct MovieListResponse: Codable {
     let page: Int
     let results: [MovieResult]
@@ -20,14 +19,12 @@ struct MovieListResponse: Codable {
     }
 }
 
-// MARK: - Result
 struct MovieResult: Codable {
     let adult: Bool
-    let backdropPath: String
+    let backdropPath: String?
     let genreIDS: [Int]
     let id: Int
-    let originalLanguage: OriginalLanguage
-    let originalTitle, overview: String
+    let originalLanguage, originalTitle, overview: String
     let popularity: Double
     let posterPath, releaseDate, title: String
     let video: Bool
@@ -48,11 +45,4 @@ struct MovieResult: Codable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
-}
-
-enum OriginalLanguage: String, Codable {
-    case en = "en"
-    case es = "es"
-    case fr = "fr"
-    case ja = "ja"
 }

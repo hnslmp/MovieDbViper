@@ -19,7 +19,7 @@ import SwiftyVIPER
 /// Should be conformed to by the `HomeRouter` and referenced by `HomePresenter`
 protocol HomePresenterRouterProtocol: PresenterRouterProtocol {
 
-    func goToMovieList(_ genreSelected: String)
+    func goToMovieList(_ genreSelected: GenreResult)
 
 }
 
@@ -32,7 +32,7 @@ final class HomeRouter: RouterProtocol, HomePresenterRouterProtocol {
 
 	weak var viewController: UIViewController?
     
-    func goToMovieList(_ genreSelected: String) {
+    func goToMovieList(_ genreSelected: GenreResult) {
         viewController?.navigationController?.pushViewController(MovieListModule(genreSelected: genreSelected).view, animated: true)
     }
 }

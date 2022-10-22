@@ -17,7 +17,7 @@ import SwiftyVIPER
 // MARK: Protocols
 
 /// Should be conformed to by the `MovieListViewController` and referenced by `MovieListPresenter`
-protocol MovieListPresenterViewProtocol: class {
+protocol MovieListPresenterViewProtocol: AnyObject {
 	/** Sets the title for the view
 	- parameters:
 		- title The title to set
@@ -41,7 +41,7 @@ class MovieListViewController: UIViewController, MovieListPresenterViewProtocol 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 144, height: 144)
+        layout.itemSize = CGSize(width: 144, height: 288)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(MovieListCollectionViewCell.self, forCellWithReuseIdentifier: MovieListCollectionViewCell.identifier)
@@ -72,6 +72,14 @@ class MovieListViewController: UIViewController, MovieListPresenterViewProtocol 
     
     func configureCollectionView() {
         view.addSubview(collectionView)
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+        }
+        
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -101,6 +109,11 @@ extension MovieListViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.backgroundColor = .systemPink
         cell.configure(with: movieListData[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedMovie = movieListData[indexPath.row]
+        presenter.goToMovieDetail(selectedMovie)
     }
     
 }
