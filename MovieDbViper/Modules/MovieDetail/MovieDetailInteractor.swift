@@ -20,13 +20,14 @@ protocol MovieDetailPresenterInteractorProtocol {
 	/// Requests the title for the presenter
 	func requestTitle()
     func requestMovieVideo()
+    func requestMovieReview()
 }
 
 // MARK: -
 
 /// The Interactor for the MovieDetail module
 final class MovieDetailInteractor: MovieDetailPresenterInteractorProtocol {
-
+    
 	// MARK: - Variables
     var movieSelected: MovieResult?
     
@@ -44,6 +45,18 @@ final class MovieDetailInteractor: MovieDetailPresenterInteractorProtocol {
             switch result {
             case .success(let videos):
                 self.presenter?.setMovieVideoData(videos)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func requestMovieReview() {
+        guard let movieSelected = movieSelected else { return }
+        ApiManager.shared.getMovieReview(movieId: movieSelected.id) { result in
+            switch result {
+            case .success(let success):
+                break
             case .failure(let error):
                 print(error)
             }

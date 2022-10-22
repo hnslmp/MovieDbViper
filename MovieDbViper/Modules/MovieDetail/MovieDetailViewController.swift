@@ -88,6 +88,7 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
             let overviewLabel = UILabel()
             overviewLabel.text = "Overview : \(movieSelected.overview)"
             overviewLabel.lineBreakMode = .byWordWrapping
+            overviewLabel.numberOfLines = 8
             
             let labelStackView = UIStackView(arrangedSubviews: [titleLabel, releaseDateLabel, overviewLabel])
             labelStackView.axis = .vertical

@@ -58,6 +58,7 @@ final class MovieDetailPresenter: MovieDetailViewPresenterProtocol, MovieDetailI
 	func viewLoaded() {
 		interactor.requestTitle()
         interactor.requestMovieVideo()
+        interactor.requestMovieReview()
 	}
 
 	// MARK: - MovieDetail Interactor to Presenter Protocol
