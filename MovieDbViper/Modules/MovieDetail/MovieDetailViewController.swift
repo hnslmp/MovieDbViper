@@ -45,6 +45,8 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
         return player
     }()
     
+//    lazy var movieTitle: UILabel =
+    
     // MARK: Inits
     
     init(presenter: MovieDetailViewPresenterProtocol) {
@@ -62,7 +64,7 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
         super.viewDidLoad()
         presenter.viewLoaded()
         setupView()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
     }
     
     func setupView() {
@@ -73,6 +75,32 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
             make.width.equalToSuperview().inset(24)
             make.height.equalTo(320)
             make.centerX.equalToSuperview()
+        }
+        
+        if let movieSelected = movieSelected {
+            
+            let titleLabel = UILabel()
+            titleLabel.text = "Title: \(movieSelected.title)"
+            
+            let releaseDateLabel = UILabel()
+            releaseDateLabel.text = "Release date: \(movieSelected.releaseDate)"
+            
+            let overviewLabel = UILabel()
+            overviewLabel.text = "Overview : \(movieSelected.overview)"
+            overviewLabel.lineBreakMode = .byWordWrapping
+            
+            let labelStackView = UIStackView(arrangedSubviews: [titleLabel, releaseDateLabel, overviewLabel])
+            labelStackView.axis = .vertical
+            labelStackView.spacing = 8
+            
+            labelStackView.backgroundColor = .systemPink
+            
+            view.addSubview(labelStackView)
+            labelStackView.snp.makeConstraints { make in
+                make.top.equalTo(playerView.snp.bottom).offset(24)
+                make.leading.equalToSuperview().inset(24)
+                make.trailing.equalToSuperview().inset(24)
+            }
         }
     }
     

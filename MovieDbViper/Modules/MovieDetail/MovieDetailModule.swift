@@ -49,5 +49,6 @@ final class MovieDetailModule: ModuleProtocol {
 		router.viewController = view
 		interactor.presenter = presenter
         interactor.movieSelected = movieSelected
+        view.movieSelected = movieSelected
 	}
 }
