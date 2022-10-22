@@ -40,4 +40,20 @@ class ApiManager {
         }
         task.resume()
     }
+    
+    func getMovieVideo(movieId: Int, completion: @escaping (Result<MovieVideoResult, Error>) -> Void) {
+        guard let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieId)/videos?api_key=52f66e7ba6b8f4b3b79b9625b47b7861") else { return }
+        let urlRequest = URLRequest(url: url)
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
+            guard let data = data, error == nil else { return }
+            do {
+                let results = try JSONDecoder().decode(MovieVideoResponse.self, from: data)
+                completion(.success(results.results[0]))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
 }

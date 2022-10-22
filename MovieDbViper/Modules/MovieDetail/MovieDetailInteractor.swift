@@ -19,6 +19,7 @@ import SwiftyVIPER
 protocol MovieDetailPresenterInteractorProtocol {
 	/// Requests the title for the presenter
 	func requestTitle()
+    func requestMovieVideo()
 }
 
 // MARK: -
@@ -27,7 +28,8 @@ protocol MovieDetailPresenterInteractorProtocol {
 final class MovieDetailInteractor: MovieDetailPresenterInteractorProtocol {
 
 	// MARK: - Variables
-
+    var movieSelected: MovieResult?
+    
 	weak var presenter: MovieDetailInteractorPresenterProtocol?
 
 	// MARK: - MovieDetail Presenter to Interactor Protocol
@@ -35,4 +37,16 @@ final class MovieDetailInteractor: MovieDetailPresenterInteractorProtocol {
 	func requestTitle() {
 		presenter?.set(title: "MovieDetail")
 	}
+    
+    func requestMovieVideo() {
+        guard let movieSelected = movieSelected else { return }
+        ApiManager.shared.getMovieVideo(movieId: movieSelected.id) { result in
+            switch result {
+            case .success(let videos):
+                self.presenter?.setMovieVideoData(videos)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

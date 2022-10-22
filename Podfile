@@ -9,4 +9,5 @@ target 'MovieDbViper' do
   pod 'SwiftyVIPER', '~> 1.0'
   pod 'SnapKit', '~> 5.0.0' 
   pod 'SDWebImage', '~> 5.0'
+  pod ‘YoutubePlayer-in-WKWebView’, “~> 0.2.0”
 end

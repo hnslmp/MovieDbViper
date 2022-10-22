@@ -22,18 +22,20 @@ protocol MovieDetailViewPresenterProtocol: ViewPresenterProtocol {
 }
 
 /// Should be conformed to by the `MovieDetailPresenter` and referenced by `MovieDetailInteractor`
-protocol MovieDetailInteractorPresenterProtocol: class {
+protocol MovieDetailInteractorPresenterProtocol: AnyObject {
 	/** Sets the title for the presenter
 	- parameters:
 		- title The title to set
 	*/
 	func set(title: String?)
+    func setMovieVideoData(_ videoData: MovieVideoResult)
 }
 
 // MARK: -
 
 /// The Presenter for the MovieDetail module
 final class MovieDetailPresenter: MovieDetailViewPresenterProtocol, MovieDetailInteractorPresenterProtocol {
+    
 
 	// MARK: - Constants
 
@@ -55,6 +57,7 @@ final class MovieDetailPresenter: MovieDetailViewPresenterProtocol, MovieDetailI
 
 	func viewLoaded() {
 		interactor.requestTitle()
+        interactor.requestMovieVideo()
 	}
 
 	// MARK: - MovieDetail Interactor to Presenter Protocol
@@ -62,4 +65,8 @@ final class MovieDetailPresenter: MovieDetailViewPresenterProtocol, MovieDetailI
 	func set(title: String?) {
 		view?.set(title: title)
 	}
+    
+    func setMovieVideoData(_ videoData: MovieVideoResult) {
+        view?.setMovieVideoData(videoData)
+    }
 }

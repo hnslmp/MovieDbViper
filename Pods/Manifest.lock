@@ -4,23 +4,27 @@ PODS:
   - SDWebImage/Core (5.13.4)
   - SnapKit (5.0.1)
   - SwiftyVIPER (1.2.3)
+  - YoutubePlayer-in-WKWebView (0.2.5)
 
 DEPENDENCIES:
   - SDWebImage (~> 5.0)
   - SnapKit (~> 5.0.0)
   - SwiftyVIPER (~> 1.0)
+  - YoutubePlayer-in-WKWebView (~> 0.2.0)
 
 SPEC REPOS:
   trunk:
     - SDWebImage
     - SnapKit
     - SwiftyVIPER
+    - YoutubePlayer-in-WKWebView
 
 SPEC CHECKSUMS:
   SDWebImage: e5cc87bf736e60f49592f307bdf9e157189298a3
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyVIPER: 83afd74104ea27303ec6a52563f4adbf33413e50
+  YoutubePlayer-in-WKWebView: 4dad12b3ece938a6456fa4374df78942f88b485a
 
-PODFILE CHECKSUM: d494d8f5360397f3e38090ead5a9cf38e0eeeecd
+PODFILE CHECKSUM: 5e735e22c6cd1a2f680d9abb69b1ac00d1979be8
 
 COCOAPODS: 1.11.3

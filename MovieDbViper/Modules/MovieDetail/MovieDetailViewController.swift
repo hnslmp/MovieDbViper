@@ -17,12 +17,13 @@ import SwiftyVIPER
 // MARK: Protocols
 
 /// Should be conformed to by the `MovieDetailViewController` and referenced by `MovieDetailPresenter`
-protocol MovieDetailPresenterViewProtocol: class {
+protocol MovieDetailPresenterViewProtocol: AnyObject {
 	/** Sets the title for the view
 	- parameters:
 		- title The title to set
 	*/
 	func set(title: String?)
+    func setMovieVideoData(_ videoData: MovieVideoResult)
 }
 
 // MARK: -
@@ -37,6 +38,7 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
 	// MARK: Variables
     
     var movieSelected: MovieResult?
+    var videoData: MovieVideoResult?
 
 	// MARK: Inits
 
@@ -63,4 +65,8 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
 	func set(title: String?) {
 		self.title = title
 	}
+    
+    func setMovieVideoData(_ videoData: MovieVideoResult) {
+        self.videoData = videoData
+    }
 }
