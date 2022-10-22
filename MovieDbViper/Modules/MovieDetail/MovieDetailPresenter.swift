@@ -18,7 +18,7 @@ import SwiftyVIPER
 
 /// Should be conformed to by the `MovieDetailPresenter` and referenced by `MovieDetailViewController`
 protocol MovieDetailViewPresenterProtocol: ViewPresenterProtocol {
-
+    func requestMovieReview()
 }
 
 /// Should be conformed to by the `MovieDetailPresenter` and referenced by `MovieDetailInteractor`
@@ -60,7 +60,7 @@ final class MovieDetailPresenter: MovieDetailViewPresenterProtocol, MovieDetailI
 	func viewLoaded() {
 		interactor.requestTitle()
         interactor.requestMovieVideo()
-        interactor.requestMovieReview()
+        requestMovieReview()
 	}
 
 	// MARK: - MovieDetail Interactor to Presenter Protocol
@@ -75,6 +75,10 @@ final class MovieDetailPresenter: MovieDetailViewPresenterProtocol, MovieDetailI
     
     func setMovieReviewData(_ reviewData: [MovieReviewResult]) {
         view?.setMovieReviewData(reviewData)
+    }
+    
+    func requestMovieReview() {
+        interactor.requestMovieReview()
     }
     
 }

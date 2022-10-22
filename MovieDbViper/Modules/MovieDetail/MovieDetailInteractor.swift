@@ -30,7 +30,7 @@ final class MovieDetailInteractor: MovieDetailPresenterInteractorProtocol {
     
 	// MARK: - Variables
     var movieSelected: MovieResult?
-    
+    var moviePage = 1
 	weak var presenter: MovieDetailInteractorPresenterProtocol?
 
 	// MARK: - MovieDetail Presenter to Interactor Protocol
@@ -53,10 +53,11 @@ final class MovieDetailInteractor: MovieDetailPresenterInteractorProtocol {
     
     func requestMovieReview() {
         guard let movieSelected = movieSelected else { return }
-        ApiManager.shared.getMovieReview(movieId: movieSelected.id) { result in
+        ApiManager.shared.getMovieReview(movieId: movieSelected.id, page: moviePage) { result in
             switch result {
             case .success(let reviews):
                 self.presenter?.setMovieReviewData(reviews)
+                self.moviePage += 1
             case .failure(let error):
                 print(error)
             }

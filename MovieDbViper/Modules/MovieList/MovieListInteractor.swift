@@ -29,6 +29,7 @@ final class MovieListInteractor: MovieListPresenterInteractorProtocol {
     
 	// MARK: - Variables
     var genreSelected: GenreResult?
+    private var moviePage = 1
 	weak var presenter: MovieListInteractorPresenterProtocol?
 
 	// MARK: - MovieList Presenter to Interactor Protocol
@@ -43,10 +44,11 @@ final class MovieListInteractor: MovieListPresenterInteractorProtocol {
     
     func requestApiMovieList() {
         guard let genreSelected = genreSelected else { return }
-        ApiManager.shared.getMoviesList(genreId: genreSelected.id) { result in
+        ApiManager.shared.getMoviesList(genreId: genreSelected.id, page: moviePage) { result in
             switch result {
             case .success(let movies):
                 self.presenter?.setMovieListData(movies)
+                self.moviePage += 1
             case .failure(let error):
                 print(error)
             }

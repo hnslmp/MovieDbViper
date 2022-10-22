@@ -157,7 +157,7 @@ class MovieDetailViewController: UIViewController, MovieDetailPresenterViewProto
                 self.tableViewLabel.text = "No Review Data Available!"
             }
         } else {
-            self.reviewData = reviewData
+            self.reviewData.append(contentsOf: reviewData)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -184,6 +184,16 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
         cell.backgroundColor = UIColor.white
         cell.textLabel?.text = reviewData[indexPath.row].content
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == reviewData.count {
+            presenter.requestMovieReview()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }

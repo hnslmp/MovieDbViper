@@ -19,6 +19,7 @@ import SwiftyVIPER
 /// Should be conformed to by the `MovieListPresenter` and referenced by `MovieListViewController`
 protocol MovieListViewPresenterProtocol: ViewPresenterProtocol {
     func goToMovieDetail(_ selectedMovie: MovieResult)
+    func requestApiMovieList()
 }
 
 /// Should be conformed to by the `MovieListPresenter` and referenced by `MovieListInteractor`
@@ -56,7 +57,7 @@ final class MovieListPresenter: MovieListViewPresenterProtocol, MovieListInterac
 
 	func viewLoaded() {
 		interactor.requestTitle()
-        interactor.requestApiMovieList()
+        requestApiMovieList()
 	}
     
     func goToMovieDetail(_ selectedMovie: MovieResult) {
@@ -71,5 +72,9 @@ final class MovieListPresenter: MovieListViewPresenterProtocol, MovieListInterac
     
     func setMovieListData(_ movies: [MovieResult]) {
         view?.updateMovieListData(movies)
+    }
+    
+    func requestApiMovieList() {
+        interactor.requestApiMovieList()
     }
 }

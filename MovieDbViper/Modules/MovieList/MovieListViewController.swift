@@ -90,7 +90,7 @@ class MovieListViewController: UIViewController, MovieListPresenterViewProtocol 
 	}
     
     func updateMovieListData(_ movies: [MovieResult]) {
-        self.movieListData = movies
+        self.movieListData.append(contentsOf: movies)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
@@ -115,4 +115,9 @@ extension MovieListViewController: UICollectionViewDelegate, UICollectionViewDat
         presenter.goToMovieDetail(selectedMovie)
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == movieListData.count - 2 {
+            presenter.requestApiMovieList()
+        }
+    }
 }
